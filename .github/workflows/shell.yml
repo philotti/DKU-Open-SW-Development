@@ -1,0 +1,41 @@
+# name: Hello                        
+# on: push                          
+# jobs:                            
+#   hello:                           
+#     runs-on: ubuntu-latest         
+#     steps:                        
+#       - run: echo "Hello, world"   
+#       - uses: actions/checkout@v4  
+
+name: Shell Command # workflow ID
+on: workflow_dispatch #event trigger
+jobs: # task 단위
+  run: # job ID
+    runs-on: ubuntu-latest # 실행 환굥
+    steps: # 실행 최소 단위
+      - name: Check environment # step1 ID
+        run: | # 여러 shell command 실행
+          echo "Current directory:"
+          pwd
+          echo "File list:"
+          ls -la
+
+      - name: Check file
+        run: | # 조건문
+          if [ -f "README.md" ]; then #
+            echo "File exists"
+          else
+            echo "File not found"
+          fi
+
+      - name: Repeat commands
+        run: |
+          for i in 1 2 3
+          do
+            echo "Test $i"
+          done
+
+      - name: Use environment variable
+        env:
+          MESSAGE: Hello
+        run: echo "$MESSAGE"
